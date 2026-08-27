@@ -21,7 +21,7 @@ void clear_input(void) { //clears input. deletes some "enters" ('\n') and EOF
     }  
 }
 
-
+//---------------------------------------------------------------------------------------------------------------------------
 
 void remove_newline(char string[]) { //helps for cleaning "enter" (or '\n') after inputing info from file or console/keyboard
     for (int i = 0; string[i] != '\0'; i++) {
@@ -32,7 +32,7 @@ void remove_newline(char string[]) { //helps for cleaning "enter" (or '\n') afte
     }
 }
 
-
+//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void remove_quotes(char * line){ //remove quotes (it was made for fopen(), in a reason that fopen() don`t want to have friend with paths that has quotes "here\is\your\path\..."
     int write_index = 0;         //after "copy as path" it has its crazy quotes
@@ -45,10 +45,32 @@ void remove_quotes(char * line){ //remove quotes (it was made for fopen(), in a 
     line[write_index] = '\0';
 }
 
-
+//-------------------------------------------------------------------------
 
 void program_crash(void) { //just goodlooking message after program`s crash
     printf(RED "\nInput error. " RESET "Press any key to exit...\n");
     _getch();
     exit(EXIT_FAILURE);
 }
+
+//----------------------------------------------
+
+//#include <windows.h> if u have WINDOWS.
+//#include <unistd.h> if LINUX/MACOS.
+#if defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+#else
+    #include <unistd.h>
+    #define Sleep(value) usleep((value) * 1000)
+#endif
+
+void ai_printf(const char *text, int delay_ms){
+    for (int i = 0; text[i] != '\0'; i++) {
+        putchar(text[i]);
+        fflush(stdout);
+        Sleep(delay_ms);
+    }
+    putchar('\n');
+}
+
+//-------------------------------------------
