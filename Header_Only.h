@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <conio.h>
 
+ #if defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+#else
+    #include <unistd.h>
+#endif
+
 //It helps to make printf() to look better  
 #define RED     "\033[1;31m"
 #define GREEN   "\033[1;32m"
@@ -57,18 +63,19 @@ void program_crash(void) { //just goodlooking message after program`s crash
 
 //#include <windows.h> if u have WINDOWS.
 //#include <unistd.h> if LINUX/MACOS.
-#if defined(_WIN32) || defined(_WIN64)
-    #include <windows.h>
-#else
-    #include <unistd.h>
-    #define Sleep(value) usleep((value) * 1000)
-#endif
+void my_sleep(int time){
+    #if defined(_WIN32) || defined(_WIN64)
+        Sleep(time);
+    #else
+        usleep((value) * 1000);
+    #endif
+}
 
 void ai_printf(const char *text, int delay_ms){
     for (int i = 0; text[i] != '\0'; i++) {
         putchar(text[i]);
         fflush(stdout);
-        Sleep(delay_ms);
+        my_sleep(delay_ms);
     }
     putchar('\n');
 }
