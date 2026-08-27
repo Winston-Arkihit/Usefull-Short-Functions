@@ -71,7 +71,7 @@ void my_sleep(int time){
     #endif
 }
 
-void ai_printf(const char *text, int delay_ms){
+void print_with_delay(const char *text, int delay_ms){
     for (int i = 0; text[i] != '\0'; i++) {
         putchar(text[i]);
         fflush(stdout);
