@@ -17,6 +17,16 @@
 //example of usage  printf(RED "here_is_your_string " RESET "\n");
 //also can be used as printf(RED "%d" RESET, a);
 
+//Checks condition. If condition is false, prints file, line and condition, then stops program.
+#define My_assert(condition)                                                              \
+    do {                                                                                  \
+        if (!(condition)) {                                                               \
+            printf(RED "ASSERT ERROR\n" RESET "Condition: %s\nFile: %s\nLine: %d\n",      \
+                   #condition, __FILE__, __LINE__);                                       \
+            abort();                                                                      \
+        }                                                                                 \
+    } while (0)
+
 //___________________________________________________________________
 //|-------FUNCTIONS-------------------------------------------------|
 //===================================================================
